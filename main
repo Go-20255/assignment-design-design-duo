@@ -1,0 +1,58 @@
+package main
+
+import (
+	"flag"
+	"fmt"
+	"log"
+	"os"
+
+	"assignment-design-design-duo/src"
+)
+
+func main() {
+
+	inputDir := flag.String("input", "input", "Log file directory")
+	outputFile := flag.String("output", "output/report.json", "JSON output path")
+	numWorkers := flag.Int("workers", 4, "Worker goroutines")
+	configPath := flag.String("config", "config/rules.json", "Rules config path")
+	flag.Parse() // reads os.Args — must call before using any flag value
+
+	if err := os.MkdirAll("output", 0755); err != nil {
+		log.Fatalf("Cannot create output dir: %v", err)
+	}
+
+	fmt.Printf("[INFO] Scanning: %s\n", *inputDir)
+	files, err := src.WalkLogs(*inputDir)
+	if err != nil {
+		log.Fatalf("Walk error: %v", err)
+	}
+	if len(files) == 0 {
+		fmt.Println("[INFO] No .log files found.")
+		return
+	}
+	fmt.Printf("[INFO] Found %d file(s).\n", len(files))
+
+	fmt.Printf("[INFO] Loading rules: %s\n", *configPath)
+	rules, err := src.LoadRules(*configPath)
+	if err != nil {
+		log.Fatalf("Rules error: %v", err)
+	}
+	fmt.Printf("[INFO] Loaded %d rule(s).\n", len(rules))
+
+	fmt.Printf("[INFO] Scanning with %d worker(s)...\n", *numWorkers)
+	report := src.WorkerPoolScan(files, rules, *numWorkers)
+
+	fmt.Printf("[INFO] Saving report: %s\n", *outputFile)
+	if err := src.SaveJSONReport(report, *outputFile); err != nil {
+		log.Fatalf("Report error: %v", err)
+	}
+
+	fmt.Println("******************")
+	fmt.Printf("  Threats : %d\n", len(report.Threats))
+	fmt.Printf("  Score   : %d\n", report.TotalScore)
+	fmt.Printf("  Report  : %s\n", *outputFile)
+	fmt.Println("******************")
+	for pattern, count := range report.Summary {
+		fmt.Printf("  %-20s %d hit(s)\n", pattern, count)
+	}
+}
