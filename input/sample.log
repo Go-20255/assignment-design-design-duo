@@ -1,0 +1,10 @@
+2026-03-22 08:00:01 INFO  Server started on port 8080
+2026-03-22 08:01:22 WARN  Failed login attempt for user: admin from 192.168.1.10
+2026-03-22 08:01:45 ERROR Failed login attempt for user: root from 10.0.0.5
+2026-03-22 08:02:10 INFO  User guest logged in successfully
+2026-03-22 08:03:30 WARN  Suspicious query detected: SELECT * FROM users WHERE id=' OR 1=1
+2026-03-22 08:05:00 INFO  File /var/www/html/index.html served to 192.168.1.20
+2026-03-22 08:06:15 ERROR Malicious payload in request body: <script>alert('xss')</script>
+2026-03-22 08:07:00 INFO  Normal database query executed
+2026-03-22 08:08:44 WARN  Failed login attempt for user: admin from 172.16.0.1
+2026-03-22 08:10:00 INFO  Backup completed successfully
