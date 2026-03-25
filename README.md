@@ -1,59 +1,23 @@
-# Assignment Design: Concurrent Log Auditor & Security Parser
-**Authors:** Samrudhi Yadgude. Umaima Nisar 
+# Threat Scanner Starter
 
-## Overview
-In this assignment, students build a command-line tool in Go that recursively scans
-a directory of server log files, detects potential security threats using configurable
-regular-expression rules, and exports a structured JSON report. Threat-detection rules
-and their severity scores are loaded at runtime from a JSON configuration file, Files are processed concurrently using a fixed-size worker pool. The final report includes every individual threat as well as aggregate summary statistics 
-## Assignment Details
-1. **Directory Walking**
-   - Recursively scan a directory tree to find `.log` files.
-   - Handle inaccessible files safely.
-2. **Threat Detection**
-   -----plz fill it
-3. **Concurrency**
- -------plz fill it
-4. **JSON Export**
-   - Save threats in `output/report.json`.
-5. **CLI Entry Point **
+This project is a self-contained Go CLI starter for the assignment's file scanning pipeline.
 
-- Parse four command-line flags with the `flag` package:
-  - `--input`   (default: `input`)
-  - `--output`  (default: `output/report.json`)
-  - `--workers` (default: `4`)
-  - `--config`  (default: `config/rules.json`)
-- It calls to `WalkLogs` → `LoadRules` → `WorkerPoolScan` →
-  `SaveJSONReport`.
-- Print informative `[INFO]` progress messages and a final summary table to
-  `stdout`.
+## Features
 
----
+- CLI flags: `--input`, `--output`, `--config`, `--workers`
+- Regex-based threat detection loaded from JSON config
+- Threat scoring and summary statistics
+- Worker pool concurrency for file processing
+- JSON report output with per-file results
+- Log file for inaccessible files and scan errors
 
-## Build & Run
-
-### Prerequisites
-
-- Go 1.22 or later
-
-### Build
+## Run
 
 ```bash
-make          
+go run . --input ./input --output ./output --config ./config/threats.json --workers 4
 ```
 
-Or manually:
+## Output
 
-```bash
-go build -o bin/assignment-design-design-duo main.go
-```
-### Custom flags
-
-```bash
-./bin/assignment-design-design-duor --input mydir --output results.json --workers 8 --config custom_rules.json
-```
-
----
-
-## Submission
-Include all source files, `Makefile`, `run.sh`, and sample input logs.
+- `output/report.json`: full report with summary stats
+- `output/logs/scan.log`: execution log
