@@ -1,0 +1,18 @@
+{
+  "FailedLogin": {
+    "pattern": "(?i)failed login",
+    "score": 5
+  },
+  "SQLInjection": {
+    "pattern": "' OR 1=1",
+    "score": 8
+  },
+  "XSS": {
+    "pattern": "<script>",
+    "score": 7
+  },
+  "SuspiciousIP": {
+    "pattern": "(\\d{1,3}\\.){3}\\d{1,3}",
+    "score": 3
+  }
+}

@@ -1,0 +1,26 @@
+2026-03-25 00:01:12 INFO  sshd: Accepted publickey for deploy from 10.0.0.45 port 22
+2026-03-25 00:03:44 WARN  sshd: Failed login for user admin from 192.168.1.101 port 22
+2026-03-25 00:03:45 WARN  sshd: Failed login for user admin from 192.168.1.101 port 22
+2026-03-25 00:03:46 WARN  sshd: Failed login for user admin from 192.168.1.101 port 22
+2026-03-25 00:03:47 WARN  sshd: Failed login for user admin from 192.168.1.101 port 22
+2026-03-25 00:03:48 WARN  sshd: Failed login for user admin from 192.168.1.101 port 22
+2026-03-25 00:03:49 ERROR sshd: Maximum failed login attempts reached from 192.168.1.101 — blocking IP
+2026-03-25 00:10:00 INFO  sshd: Accepted password for operator from 10.0.0.12 port 22
+2026-03-25 01:15:33 WARN  sudo: user www-data attempted sudo without permission
+2026-03-25 01:15:34 ERROR sudo: privilege escalation attempt blocked for www-data
+2026-03-25 02:00:00 INFO  cron: scheduled backup started by root
+2026-03-25 02:30:11 WARN  pam: Failed login for user postgres from 172.16.0.5
+2026-03-25 02:30:12 WARN  pam: Failed login for user postgres from 172.16.0.5
+2026-03-25 02:30:13 WARN  pam: Failed login for user postgres from 172.16.0.5
+2026-03-25 03:44:01 INFO  sshd: Accepted publickey for ci-runner from 10.0.0.9 port 22
+2026-03-25 04:12:55 ERROR pam: su - attempted by unprivileged user guest
+2026-03-25 04:12:56 ERROR pam: root login attempt via su - from user guest — denied
+2026-03-25 06:00:00 INFO  cron: log rotation completed
+2026-03-25 07:30:22 WARN  sshd: Failed login for user root from 203.0.113.45 port 22
+2026-03-25 07:30:23 WARN  sshd: Failed login for user root from 203.0.113.45 port 22
+2026-03-25 07:30:24 WARN  sshd: Failed login for user root from 203.0.113.45 port 22
+2026-03-25 07:30:25 WARN  sshd: Failed login for user root from 203.0.113.45 port 22
+2026-03-25 07:30:26 ERROR sshd: Brute force detected from 203.0.113.45 — IP banned
+2026-03-25 08:00:01 INFO  sshd: Accepted publickey for deploy from 10.0.0.45 port 22
+2026-03-25 09:14:03 WARN  sudo: user jenkins ran sudo go build — logged
+2026-03-25 10:00:00 INFO  system: daily health check passed

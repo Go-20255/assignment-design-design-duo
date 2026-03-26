@@ -1,0 +1,82 @@
+{
+  "input_directory": "./input/webapp.log",
+  "output_directory": "./output",
+  "config_path": "./config/threats.json",
+  "worker_count": 4,
+  "summary": {
+    "scanned_at": "2026-03-26T18:23:20-04:00",
+    "files_discovered": 1,
+    "files_scanned": 1,
+    "files_flagged": 1,
+    "inaccessible_files": 0,
+    "total_threat_matches": 36,
+    "total_threat_score": 171,
+    "average_threat_score": 171,
+    "highest_threat_score": 171,
+    "highest_threat_score_file": ".",
+    "severity_counts": {
+      "high": 10,
+      "low": 19,
+      "medium": 7
+    },
+    "rule_match_counts": {
+      "PathTraversal": 7,
+      "RootAccess": 1,
+      "SQLInjection": 5,
+      "SuspiciousIP": 19,
+      "XSS": 4
+    }
+  },
+  "files": [
+    {
+      "path": ".",
+      "status": "flagged",
+      "threat_score": 171,
+      "risk_level": "high",
+      "threat_count": 36,
+      "threats": [
+        {
+          "rule_name": "SQLInjection",
+          "severity": "high",
+          "weight": 10,
+          "description": "Detects common SQL injection payloads in log entries",
+          "matched_text": "' OR 1=1",
+          "occurrences": 5
+        },
+        {
+          "rule_name": "XSS",
+          "severity": "high",
+          "weight": 8,
+          "description": "Detects cross-site scripting payloads in request logs",
+          "matched_text": "\u003cscript\u003e",
+          "occurrences": 4
+        },
+        {
+          "rule_name": "SuspiciousIP",
+          "severity": "low",
+          "weight": 2,
+          "description": "Flags accesses originating from private/internal IP ranges",
+          "matched_text": "192.168.",
+          "occurrences": 19
+        },
+        {
+          "rule_name": "RootAccess",
+          "severity": "high",
+          "weight": 9,
+          "description": "Detects attempts to access root or escalate privileges",
+          "matched_text": "sudo",
+          "occurrences": 1
+        },
+        {
+          "rule_name": "PathTraversal",
+          "severity": "medium",
+          "weight": 6,
+          "description": "Detects directory traversal attempts using ../ sequences",
+          "matched_text": "../",
+          "occurrences": 7
+        }
+      ]
+    }
+  ],
+  "logs": []
+}

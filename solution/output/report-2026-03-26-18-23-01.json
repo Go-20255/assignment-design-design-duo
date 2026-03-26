@@ -1,0 +1,64 @@
+{
+  "input_directory": "./input/auth.log",
+  "output_directory": "./output",
+  "config_path": "./config/threats.json",
+  "worker_count": 4,
+  "summary": {
+    "scanned_at": "2026-03-26T18:23:01-04:00",
+    "files_discovered": 1,
+    "files_scanned": 1,
+    "files_flagged": 1,
+    "inaccessible_files": 0,
+    "total_threat_matches": 40,
+    "total_threat_score": 217,
+    "average_threat_score": 217,
+    "highest_threat_score": 217,
+    "highest_threat_score_file": ".",
+    "severity_counts": {
+      "high": 14,
+      "low": 13,
+      "medium": 13
+    },
+    "rule_match_counts": {
+      "FailedLogin": 13,
+      "RootAccess": 14,
+      "SuspiciousIP": 13
+    }
+  },
+  "files": [
+    {
+      "path": ".",
+      "status": "flagged",
+      "threat_score": 217,
+      "risk_level": "high",
+      "threat_count": 40,
+      "threats": [
+        {
+          "rule_name": "FailedLogin",
+          "severity": "medium",
+          "weight": 5,
+          "description": "Detects failed login attempts which may indicate brute-force attacks",
+          "matched_text": "Failed login",
+          "occurrences": 13
+        },
+        {
+          "rule_name": "SuspiciousIP",
+          "severity": "low",
+          "weight": 2,
+          "description": "Flags accesses originating from private/internal IP ranges",
+          "matched_text": "10.0.0.",
+          "occurrences": 13
+        },
+        {
+          "rule_name": "RootAccess",
+          "severity": "high",
+          "weight": 9,
+          "description": "Detects attempts to access root or escalate privileges",
+          "matched_text": "sudo",
+          "occurrences": 14
+        }
+      ]
+    }
+  ],
+  "logs": []
+}

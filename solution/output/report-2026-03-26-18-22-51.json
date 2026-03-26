@@ -1,0 +1,82 @@
+{
+  "input_directory": "./input/sample.log",
+  "output_directory": "./output",
+  "config_path": "./config/threats.json",
+  "worker_count": 4,
+  "summary": {
+    "scanned_at": "2026-03-26T18:22:51-04:00",
+    "files_discovered": 1,
+    "files_scanned": 1,
+    "files_flagged": 1,
+    "inaccessible_files": 0,
+    "total_threat_matches": 11,
+    "total_threat_score": 60,
+    "average_threat_score": 60,
+    "highest_threat_score": 60,
+    "highest_threat_score_file": ".",
+    "severity_counts": {
+      "high": 4,
+      "low": 4,
+      "medium": 3
+    },
+    "rule_match_counts": {
+      "FailedLogin": 3,
+      "RootAccess": 1,
+      "SQLInjection": 2,
+      "SuspiciousIP": 4,
+      "XSS": 1
+    }
+  },
+  "files": [
+    {
+      "path": ".",
+      "status": "flagged",
+      "threat_score": 60,
+      "risk_level": "high",
+      "threat_count": 11,
+      "threats": [
+        {
+          "rule_name": "FailedLogin",
+          "severity": "medium",
+          "weight": 5,
+          "description": "Detects failed login attempts which may indicate brute-force attacks",
+          "matched_text": "Failed login",
+          "occurrences": 3
+        },
+        {
+          "rule_name": "SQLInjection",
+          "severity": "high",
+          "weight": 10,
+          "description": "Detects common SQL injection payloads in log entries",
+          "matched_text": "SELECT * FROM",
+          "occurrences": 2
+        },
+        {
+          "rule_name": "XSS",
+          "severity": "high",
+          "weight": 8,
+          "description": "Detects cross-site scripting payloads in request logs",
+          "matched_text": "\u003cscript\u003e",
+          "occurrences": 1
+        },
+        {
+          "rule_name": "SuspiciousIP",
+          "severity": "low",
+          "weight": 2,
+          "description": "Flags accesses originating from private/internal IP ranges",
+          "matched_text": "192.168.",
+          "occurrences": 4
+        },
+        {
+          "rule_name": "RootAccess",
+          "severity": "high",
+          "weight": 9,
+          "description": "Detects attempts to access root or escalate privileges",
+          "matched_text": "root",
+          "occurrences": 1
+        }
+      ]
+    }
+  ],
+  "logs": []
+}

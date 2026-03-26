@@ -1,0 +1,46 @@
+{
+  "rules": [
+    {
+      "name": "FailedLogin",
+      "pattern": "(?i)failed login",
+      "severity": "medium",
+      "weight": 5,
+      "description": "Detects failed login attempts which may indicate brute-force attacks"
+    },
+    {
+      "name": "SQLInjection",
+      "pattern": "(?i)(' OR 1=1|UNION SELECT|DROP TABLE|INSERT INTO|SELECT \\* FROM)",
+      "severity": "high",
+      "weight": 10,
+      "description": "Detects common SQL injection payloads in log entries"
+    },
+    {
+      "name": "XSS",
+      "pattern": "(?i)(<script>|javascript:|onerror=|onload=)",
+      "severity": "high",
+      "weight": 8,
+      "description": "Detects cross-site scripting payloads in request logs"
+    },
+    {
+      "name": "SuspiciousIP",
+      "pattern": "(10\\.0\\.0\\.|172\\.16\\.|192\\.168\\.)",
+      "severity": "low",
+      "weight": 2,
+      "description": "Flags accesses originating from private/internal IP ranges"
+    },
+    {
+      "name": "RootAccess",
+      "pattern": "(?i)(sudo|root|su -|privilege escalation)",
+      "severity": "high",
+      "weight": 9,
+      "description": "Detects attempts to access root or escalate privileges"
+    },
+    {
+      "name": "PathTraversal",
+      "pattern": "(\\.\\./|\\.\\.\\\\ )",
+      "severity": "medium",
+      "weight": 6,
+      "description": "Detects directory traversal attempts using ../ sequences"
+    }
+  ]
+}

