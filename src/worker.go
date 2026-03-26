@@ -2,45 +2,20 @@ package src
 
 import (
 	"log"
-	"sort"
-	"sync"
+	// TODO: add imports you need
 )
 
+// ScanFiles distributes tasks across workerCount goroutines using channels
+// and a sync.WaitGroup, collects all results, and returns them sorted by
+// file path.
+//
+// Requirements:
+//   - Exactly workerCount goroutines must run concurrently
+//   - Use a channel to feed tasks to workers
+//   - Use a channel to collect ScanResults from workers
+//   - Use sync.WaitGroup to know when all workers are done
+//   - Sort results by Report.Path before returning
 func ScanFiles(tasks []ScanTask, rules []ThreatRule, workerCount int, logger *log.Logger) []ScanResult {
-
-	taskCh := make(chan ScanTask)
-
-	resultCh := make(chan ScanResult)
-
-	var workers sync.WaitGroup
-	for i := 0; i < workerCount; i++ {
-		workers.Add(1)
-		go func() {
-			defer workers.Done()
-
-			for task := range taskCh {
-				resultCh <- ScanSingleFile(task, rules, logger)
-			}
-		}()
-	}
-
-	go func() {
-		for _, task := range tasks {
-			taskCh <- task
-		}
-		close(taskCh)
-		workers.Wait()
-		close(resultCh)
-	}()
-
-	results := make([]ScanResult, 0, len(tasks))
-	for result := range resultCh {
-		results = append(results, result)
-	}
-
-	sort.Slice(results, func(i, j int) bool {
-		return results[i].Report.Path < results[j].Report.Path
-	})
-
-	return results
+	// TODO
+	return nil
 }

@@ -1,4 +1,0 @@
-scanner 2026/03/25 22:33:48 loaded 6 rule(s) from ./config/threats.json
-scanner 2026/03/25 22:33:48 scanning directory: ./input
-scanner 2026/03/25 22:33:48 discovered 2 file(s)
-scanner 2026/03/25 22:33:48 starting scan with 4 worker(s)

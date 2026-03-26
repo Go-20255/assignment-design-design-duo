@@ -1,5 +1,1 @@
-package src
-
-import "regexp"
-
-type RegExp = regexp.Regexp
+../solution/src/regularExp.go

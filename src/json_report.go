@@ -1,13 +1,5 @@
 package src
 
-import (
-	"encoding/json"
-	"os"
-	"path/filepath"
-	"sort"
-	"time"
-)
-
 type ThreatRule struct {
 	Name        string  `json:"name"`
 	Pattern     string  `json:"pattern"`
@@ -82,80 +74,16 @@ type ScanResult struct {
 	Logs   []LogEntry
 }
 
+// BuildReport assembles a Report from walk logs and scan results.
+// It must compute all Summary fields and sort Files and Logs.
 func BuildReport(inputDir, outputDir, configPath string, workerCount int, walkLogs []LogEntry, results []ScanResult) Report {
-	files := make([]FileReport, 0, len(results))
-	logs := append([]LogEntry{}, walkLogs...)
-
-	summary := Summary{
-		ScannedAt:       time.Now().Format(time.RFC3339),
-		FilesDiscovered: len(results),
-		SeverityCounts:  make(map[string]int),
-		RuleMatchCounts: make(map[string]int),
-	}
-
-	for _, result := range results {
-		report := result.Report
-		files = append(files, report)
-		logs = append(logs, result.Logs...)
-
-		if report.Status != "error" {
-			summary.FilesScanned++
-		} else {
-			summary.InaccessibleFiles++
-		}
-
-		if report.ThreatScore > summary.HighestThreatScore {
-			summary.HighestThreatScore = report.ThreatScore
-			summary.HighestThreatScoreFile = report.Path
-		}
-
-		if report.Status == "flagged" {
-			summary.FilesFlagged++
-			summary.TotalThreatMatches += report.ThreatCount
-			summary.TotalThreatScore += report.ThreatScore
-		}
-
-		for _, threat := range report.Threats {
-			summary.SeverityCounts[threat.Severity] += threat.Occurrences
-			summary.RuleMatchCounts[threat.RuleName] += threat.Occurrences
-		}
-	}
-
-	if summary.FilesScanned > 0 {
-		summary.AverageThreatScore = float64(summary.TotalThreatScore) / float64(summary.FilesScanned)
-	}
-
-	sort.Slice(files, func(i, j int) bool {
-		return files[i].Path < files[j].Path
-	})
-	sort.Slice(logs, func(i, j int) bool {
-		if logs[i].Time == logs[j].Time {
-			return logs[i].Path < logs[j].Path
-		}
-		return logs[i].Time < logs[j].Time
-	})
-
-	return Report{
-		InputDirectory:  inputDir,
-		OutputDirectory: outputDir,
-		ConfigPath:      configPath,
-		WorkerCount:     workerCount,
-		Summary:         summary,
-		Files:           files,
-		Logs:            logs,
-	}
+	//TODO
+	return Report{}
 }
 
+// WriteReport creates outputDir if needed and writes report to
+// outputDir/report.json as indented JSON.
 func WriteReport(outputDir string, report Report) error {
-	if err := os.MkdirAll(outputDir, 0o755); err != nil {
-		return err
-	}
-
-	data, err := json.MarshalIndent(report, "", "  ")
-	if err != nil {
-		return err
-	}
-
-	reportPath := filepath.Join(outputDir, "report.json")
-	return os.WriteFile(reportPath, data, 0o644)
+	//TODO
+	return nil
 }

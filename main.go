@@ -1,19 +1,19 @@
 package main
 
 import (
-	"assignment-design-design-duo/src"
 	"flag"
 	"fmt"
 	"os"
 	"runtime"
+	// your path -"assignment-design-design-duo/src"
 )
 
 func main() {
-
-	inputDir := flag.String("input", "./input", "Input directory to scan")
-	outputDir := flag.String("output", "./output", "Output directory for report")
-	configPath := flag.String("config", "./config/threats.json", "Path to threat rules JSON")
-	workerCount := flag.Int("workers", runtime.NumCPU(), "Number of concurrent workers")
+	//Flags are given to you — DO NOT MODIFY
+	inputDir := flag.String("input", "./input", "Input directory")
+	outputDir := flag.String("output", "./output", "Output directory")
+	configPath := flag.String("config", "./config/threats.json", "Rules config path")
+	workerCount := flag.Int("workers", runtime.NumCPU(), "Worker count")
 	flag.Parse()
 
 	if *workerCount < 1 {
@@ -21,44 +21,20 @@ func main() {
 		os.Exit(1)
 	}
 
-	logger, logFile, err := src.BuildLogger(*outputDir)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "failed to initialize logging: %v\n", err)
-		os.Exit(1)
-	}
-	defer logFile.Close()
+	// TODO: wire the program together using the src package
+	//
+	// Step 1: call src.BuildLogger to set up the logger
+	// Step 2: call src.LoadConfig to load the rules
+	// Step 3: call src.DiscoverFiles to find all log files
+	// Step 4: call src.ScanFiles to scan them concurrently
+	// Step 5: call src.BuildReport to assemble the report
+	// Step 6: call src.WriteReport to save it to disk
+	// Step 7: print a summary to the terminal
+	//
+	// Handle errors from each step with log.Fatalf or os.Exit(1)
 
-	config, err := src.LoadConfig(*configPath)
-	if err != nil {
-		logger.Printf("failed to load config: %v", err)
-		fmt.Fprintf(os.Stderr, "failed to load config: %v\n", err)
-		os.Exit(1)
-	}
-	logger.Printf("loaded %d rule(s) from %s", len(config.Rules), *configPath)
-
-	logger.Printf("scanning directory: %s", *inputDir)
-	tasks, walkLogs := src.DiscoverFiles(*inputDir, logger)
-	logger.Printf("discovered %d file(s)", len(tasks))
-
-	logger.Printf("starting scan with %d worker(s)", *workerCount)
-	results := src.ScanFiles(tasks, config.Rules, *workerCount, logger)
-
-	report := src.BuildReport(*inputDir, *outputDir, *configPath, *workerCount, walkLogs, results)
-
-	if err := src.WriteReport(*outputDir, report); err != nil {
-		logger.Printf("failed to write report: %v", err)
-		fmt.Fprintf(os.Stderr, "failed to write report: %v\n", err)
-		os.Exit(1)
-	}
-
-	fmt.Println("─────────────────────────────────────────")
-	fmt.Printf("  Scan complete\n")
-	fmt.Printf("  Files scanned   : %d\n", report.Summary.FilesScanned)
-	fmt.Printf("  Files flagged   : %d\n", report.Summary.FilesFlagged)
-	fmt.Printf("  Total score     : %d\n", report.Summary.TotalThreatScore)
-	fmt.Printf("  Highest risk    : %s (%d)\n",
-		report.Summary.HighestThreatScoreFile,
-		report.Summary.HighestThreatScore)
-	fmt.Printf("  Report saved to : %s/report.json\n", *outputDir)
-	fmt.Println("─────────────────────────────────────────")
+	_ = inputDir
+	_ = outputDir
+	_ = configPath
+	_ = workerCount // remove these as you implement
 }
