@@ -164,6 +164,26 @@ Once implemented, running the scanner should produce:
 
 The output should be deterministic enough that rerunning on the same files gives the same logical result aside from timestamps.
 
+## Sample Test Files
+
+The repository already includes a few small input files so the scanner can be tested without creating your own dataset first.
+
+- `input/clean.txt`
+  Simple benign content. This is useful for checking that normal files stay unflagged.
+- `input/app.js`
+  Example application-style source file. This is a good file for verifying that regex rules only match when they should.
+- `input/notes.txt`
+  General text content that helps test ordinary file discovery and reporting.
+
+The `solution/input/` folder includes a slightly larger set of examples such as `access.log`, `auth.log`, `sample.log`, and `webapp.log`. Those are helpful when testing recursive directory walking, multi-file scans, and summary statistics across different file types.
+
+When someone is implementing the TODOs, these files are mainly useful for checking:
+
+- whether files are discovered correctly
+- whether clean files stay clean
+- whether suspicious patterns are counted correctly
+- whether summary totals change as more files are scanned
+
 ## Running The Project
 
 From the repository root:
